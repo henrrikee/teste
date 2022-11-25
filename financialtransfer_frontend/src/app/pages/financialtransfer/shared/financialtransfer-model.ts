@@ -1,5 +1,6 @@
 
 export class FinancialTransfer {
+    
     id!: number;
     sourceAccount!: string;
     targetAccount!: string;

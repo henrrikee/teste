@@ -3,6 +3,7 @@ import ptBr from '@angular/common/locales/pt';
 import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { FinancialtransferModule } from './financialtransfer/shared/financialtransfer.module';
 import {TableModule} from 'primeng/table';
+import { FormsModule } from '@angular/forms';
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -11,6 +12,7 @@ registerLocaleData(ptBr);
         TableModule,
         FinancialtransferModule,
         CommonModule,
+        FormsModule
         
     ],
     providers: [
