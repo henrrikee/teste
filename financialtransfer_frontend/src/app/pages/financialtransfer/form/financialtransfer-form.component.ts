@@ -63,7 +63,7 @@ export class FinancialtransferFormComponent implements OnInit {
     var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
     console.log(days)
     if (this.financialTransfer.transferAmount <= 1000 && days == 0) {
-      this.financialTransfer.rate = (value / 100) * 3
+      this.financialTransfer.rate = ((value / 100) * 3) + 3
       console.log("Valor", this.financialTransfer.transferAmount)
     } else if (this.financialTransfer.transferAmount > 1000 && this.financialTransfer.transferAmount <= 2000 && days <= 10) {
       this.financialTransfer.rate = value + 12
