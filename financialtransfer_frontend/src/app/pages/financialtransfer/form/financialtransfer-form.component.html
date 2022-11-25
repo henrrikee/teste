@@ -1,0 +1,59 @@
+<form #frm="ngForm" name="formFinancialTransfer" th:method="post">
+    <div class="form-group col-md-3">
+        <label for="sourceAccount"><b>Conta de origem</b></label>
+        <input type="text" name="sourceAccount" id="sourceAccount" class="form-control" maxlength="6"
+            placeholder="Digite a conta de origem..." [(ngModel)]="financialTransfer.sourceAccount">
+    </div><br>
+    <div class="form-group col-md-3">
+        <label for="targetAccount"><b>Conta de destino</b></label>
+        <input type="text" name="targetAccount" id="targetAccount" class="form-control" maxlength="6"
+            placeholder="Digite a conta de destino..." [(ngModel)]="financialTransfer.targetAccount">
+    </div><br>
+    <div class="form-group col-md-3">
+        <label for="transferAmount"><b>Valor da transferência</b></label>
+        <input type="text" class="form-control" name="transferAmount" id="transferAmount"
+            [(ngModel)]="financialTransfer.transferAmount" currencyMask
+            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',',align: 'left' }">
+    </div><br>
+    <div class="form-group col-md-3">
+        <label for="appointmentDate"><b>Data de agendamento</b></label>
+        <input type="date" class="form-control" name="appointmentDate" id="appointmentDate" [min]="maxDate"
+            [(ngModel)]="financialTransfer.appointmentDate">
+    </div><br>
+    <div class="form-group col-md-3">
+        <label for="transferDate"><b>Data da transferencia</b></label>
+        <input type="date" class="form-control" name="transferDate" id="transferDate"
+            [(ngModel)]="financialTransfer.transferDate" disabled>
+    </div><br>
+    <div class="form-group col-md-3">
+        <label for="rate"><b>Taxa</b></label>
+        <input type="text" class="form-control" currencyMask
+            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',',align: 'left' }" name="rate" id="rate"
+            [(ngModel)]="financialTransfer.rate" disabled>
+    </div><br>
+</form>
+<button type="button" name="btn1" id="btn1" class="btn btn-success btn-config" (click)="actionBtnSave()"><i
+        class="fa fa-save"></i>
+    Salvar</button><br><br><br><br>
+<p-table [value]="financialTransfers" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Conta de origem</th>
+            <th>Conta de destino</th>
+            <th>Data de agendamento</th>
+            <th>Data da transferencia</th>
+            <th>Valor da transferência</th>
+            <th>Taxa</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-financialTransfers>
+        <tr>
+            <td>{{financialTransfers.sourceAccount}}</td>
+            <td>{{financialTransfers.targetAccount}}</td>
+            <td>{{financialTransfers.appointmentDate | date: 'dd/MM/yyyy'}}</td>
+            <td>{{financialTransfers.transferDate | date: 'dd/MM/yyyy'}}</td>
+            <td>{{financialTransfers.transferAmount | currency}}</td>
+            <td>{{financialTransfers.rate | currency}}</td>
+        </tr>
+    </ng-template>
+</p-table>
