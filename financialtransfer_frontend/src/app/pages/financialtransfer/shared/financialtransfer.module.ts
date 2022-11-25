@@ -4,14 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { FinancialtransferFormComponent } from '../form/financialtransfer-form.component';
-import { FinancialtransferListComponent } from '../list/financialtransfer-list.component';
 import { FinancialtransferRoutingModule, routes} from './financialtransfer.module.routing';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { TableModule } from 'primeng/table';
 
 @NgModule({
   declarations: [
-    FinancialtransferListComponent,
     FinancialtransferFormComponent,
     AppComponent
 
