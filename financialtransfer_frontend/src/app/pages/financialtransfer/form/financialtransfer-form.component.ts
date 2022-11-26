@@ -30,6 +30,9 @@ export class FinancialtransferFormComponent implements OnInit {
     this.financialTransfer.transferDate = new Date(new Date().getTime()).toISOString().substring(0, 10);
     this.financialTransferService.GetTransfers().subscribe(respGet => {
       this.financialTransfers = respGet
+      this.financialTransfer.sourceAccount = ''
+      this.financialTransfer.targetAccount = ''
+      this.financialTransfer.appointmentDate = ''
     })
   }
 
@@ -38,16 +41,15 @@ export class FinancialtransferFormComponent implements OnInit {
     return financialTransfer;
   }
 
-  clean() {
-    this.financialTransfer.appointmentDate = ''
-    this.financialTransfer.rate = 0
-    this.financialTransfer.sourceAccount = ''
-    this.financialTransfer.targetAccount = ''
-    this.financialTransfer.transferAmount = 0
-  }
-
   resetValue() {
     this.financialTransfer.transferAmount = 0
+    this.financialTransfer.rate = 0
+  }
+
+  showAlert() {
+    alert('Erro: Não existe taxa aplicável para esta transação!');
+    this.financialTransfer.transferAmount = 0
+    this.financialTransfer.appointmentDate = ''
     this.financialTransfer.rate = 0
   }
 
@@ -59,48 +61,31 @@ export class FinancialtransferFormComponent implements OnInit {
     var diff = Math.abs(now.getTime() - future.getTime());
     var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
     if (this.financialTransfer.transferAmount <= 1000 && days != 0) {
-      alert('Erro: Não existe taxa aplicável para esta transação!');
-      this.financialTransfer.transferAmount = 0
-      this.financialTransfer.appointmentDate = ''
+      this.showAlert();
     }
     if (this.financialTransfer.transferAmount <= 1000 && days < 1) {
       this.financialTransfer.rate = ((value / 100) * 3) + 3
     }
     if (this.financialTransfer.transferAmount > 1000 && this.financialTransfer.transferAmount <= 2000 && days > 10) {
-      alert('Erro: Não existe taxa aplicável para esta transação!');
-      this.financialTransfer.transferAmount = 0
-      this.financialTransfer.appointmentDate = ''
+      this.showAlert();
     }
     if (this.financialTransfer.transferAmount > 1000 && this.financialTransfer.transferAmount <= 2000 && days <= 10) {
       this.financialTransfer.rate = 12
     } if (this.financialTransfer.transferAmount > 2000 && days > 10 && days < 20) {
       this.financialTransfer.rate = (value / 100) * 8.2
     } if (this.financialTransfer.transferAmount > 2000 && days <= 10) {
-      alert('Erro: Não existe taxa aplicável para esta transação!');
-      this.financialTransfer.transferAmount = 0
-      this.financialTransfer.appointmentDate = ''
+      this.showAlert();
     }
     if (this.financialTransfer.transferAmount > 2000 && days > 20 && days < 30) {
       this.financialTransfer.rate = (value / 100) * 6.9
     } if (this.financialTransfer.transferAmount > 2000 && days <= 20) {
-      alert('Erro: Não existe taxa aplicável para esta transação!');
-      this.financialTransfer.transferAmount = 0
-      this.financialTransfer.appointmentDate = ''
+      this.showAlert();
     } if (this.financialTransfer.transferAmount > 2000 && days > 30 && days < 40) {
       this.financialTransfer.rate = (value / 100) * 4.7
     } if (this.financialTransfer.transferAmount > 2000 && days <= 30) {
-      alert('Erro: Não existe taxa aplicável para esta transação!');
-      this.financialTransfer.transferAmount = 0
-      this.financialTransfer.appointmentDate = ''
+      this.showAlert();
     } if (days > 40) {
       this.financialTransfer.rate = (value / 100) * 1.7
-    }
-  }
-
-  verificationSourceAccount() {
-    if (this.financialTransfer.sourceAccount.length != 6) {
-      alert('Erro: O número da conta de origem deve conter 6 números!');
-      this.financialTransfer.sourceAccount = ''
     }
   }
 
@@ -116,13 +101,13 @@ export class FinancialtransferFormComponent implements OnInit {
       alert("Erro! Valor da transferência precisa ser diferente de 0!")
     } if (this.financialTransfer.transferAmount !== 0) {
       this.financialTransferService.savee(this.financialTransfer).subscribe(respSave => {
-        this.clean()
         this.financialTransferService.GetTransfers().subscribe(respGet => {
           this.financialTransfers = respGet
-          alert("Transferência salva com sucesso!")
         })
       })
     }
+    location.reload();
+    alert("Transferência salva com sucesso!")
   }
 }
 

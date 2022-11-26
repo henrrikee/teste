@@ -1,45 +1,77 @@
 <form #frm="ngForm" name="formFinancialTransfer" th:method="post" ngSubmit="onSubmit(frm)">
     <div class="form-group col-md-3">
-        <label for="sourceAccount"><b>Conta de origem</b></label>
-        <input type="text" name="sourceAccount" id="sourceAccount" class="form-control"
-            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-            maxlength="6" (blur)="verificationSourceAccount()" placeholder="Digite a conta de origem..." [(ngModel)]="financialTransfer.sourceAccount" required #sourceAccount="ngModel">
+        <label for="sourceAccount" class="space">Conta de origem</label>
+        <input type="text" name="sourceAccount" id="sourceAccount" class="form-control p-inputtext-sm" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength)
+            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="6" minlength="6"
+            placeholder="Digite a conta de origem..." [(ngModel)]="financialTransfer.sourceAccount" required
+            #sourceAccount="ngModel" pInputText>
+        <div class="alert-sm" *ngIf="sourceAccount.touched">
+            <div *ngIf="financialTransfer.sourceAccount.length !== 6">
+                <font color="#a70101" size="1" class="space-font"><b>Este campo deve conter 6 dígitos</b>
+                </font>
+            </div>
+            <div *ngIf="financialTransfer.sourceAccount == ''">
+                <font color="#a70101" size="1" class="space-font"><b>* Campo obrigatório!</b>
+                </font>
+            </div>
+        </div>
     </div><br>
     <div class="form-group col-md-3">
-        <label for="targetAccount"><b>Conta de destino</b></label>
-        <input type="text" name="targetAccount" id="targetAccount" class="form-control"
-            oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength) 
-            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-            maxlength="6" (blur)="verificationTargetAccount()" placeholder="Digite a conta de destino..." [(ngModel)]="financialTransfer.targetAccount" required>
+        <label for="targetAccount" class="space"><b>Conta de destino</b></label>
+        <input type="text" name="targettAccount" id="targettAccount" class="form-control p-inputtext-sm" oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength) 
+            this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" maxlength="6" minlength="6"
+            placeholder="Digite a conta de destino..." [(ngModel)]="financialTransfer.targetAccount" required
+            #targetAccount="ngModel" pInputText>
+        <div class="alert-sm" *ngIf="targetAccount.touched">
+            <div *ngIf="financialTransfer.targetAccount.length !== 6">
+                <font color="#a70101" size="1" class="space-font"><b>Este campo deve conter 6 dígitos</b>
+                </font>
+            </div>
+            <div *ngIf="financialTransfer.targetAccount == ''">
+                <font color="#a70101" size="1" class="space-font"><b>* Campo obrigatório!</b>
+                </font>
+            </div>
+        </div>
     </div><br>
     <div class="form-group col-md-3">
-        <label for="appointmentDate"><b>Data de agendamento</b></label>
-        <input type="date" class="form-control" name="appointmentDate" id="appointmentDate" [min]="maxDate"
-            [(ngModel)]="financialTransfer.appointmentDate" (blur)="resetValue()" required>
+        <label for="appointmentDate" class="space"><b>Data de agendamento</b></label>
+        <input type="date" class="form-control p-inputtext-sm" name="appointmentDate" id="appointmentDate"
+            [min]="maxDate" [(ngModel)]="financialTransfer.appointmentDate" (blur)="resetValue()" required
+            #appointmentDate="ngModel" pInputText>
+        <div class="alert-sm" *ngIf="appointmentDate.touched">
+            <div *ngIf="financialTransfer.appointmentDate == ''">
+                <font color="#a70101" size="1" class="space-font-data"><b>Selecione uma data</b>
+                </font>
+            </div>
+            <div *ngIf="financialTransfer.appointmentDate < maxDate">
+                <font color="#a70101" size="1" class="space-font-data"><b>Data inválida!</b>
+                </font>
+            </div>
+        </div>
     </div><br>
     <div class="form-group col-md-3">
-        <label for="transferDate"><b>Data da transferencia</b></label>
-        <input type="date" class="form-control" name="transferDate" id="transferDate"
-            [(ngModel)]="financialTransfer.transferDate" disabled required>
+        <label for="transferDate" class="space"><b>Data da transferencia</b></label>
+        <input type="date" class="form-control p-inputtext-sm" name="transferDate" id="transferDate"
+            [(ngModel)]="financialTransfer.transferDate" disabled pInputText>
     </div><br>
     <div class="form-group col-md-3">
-        <label for="transferAmount"><b>Valor da transferência</b></label>
-        <input type="text" class="form-control" name="transferAmount" id="transferAmount"
+        <label for="transferAmount" class="space"><b>Valor da transferência</b></label>
+        <input type="text" class="form-control p-inputtext-sm" name="transferAmount" id="transferAmount" placeholder="R$ 0,00"
             [(ngModel)]="financialTransfer.transferAmount" currencyMask
-            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',',align: 'left' }" (blur)="rateCalculation()" required>
+            [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',',align: 'left' }" (blur)="rateCalculation()"
+            required pInputText>
     </div><br>
     <div class="form-group col-md-3">
-        <label for="rate"><b>Taxa</b></label>
-        <input type="text" class="form-control" name="rate" id="rate" currencyMask
+        <label for="rate" class="space"><b>Taxa</b></label>
+        <input type="text" class="form-control p-inputtext-sm" name="rate" id="rate" placeholder="R$ 0,00" currencyMask
             [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',',align: 'left' }" name="rate" id="rate"
-            [(ngModel)]="financialTransfer.rate" required disabled>
+            [(ngModel)]="financialTransfer.rate" disabled pInputText>
     </div><br>
-<button type="button" name="btn1" id="btn1" class="btn btn-success btn-config" (click)="actionBtnSave()" [disabled]="!frm.valid"><i
-        class="fa fa-save"></i>
-    Salvar</button><br><br><br><br>
+    <button pButton type="button" name="btn1" id="btn1" class="p-button-success" label="Salvar"
+        (click)="actionBtnSave()" [disabled]="!frm.valid">
+        <i class="fa fa-save"></i></button><br><br><br><br>
 </form>
-<p-table [value]="financialTransfers" [tableStyle]="{'min-width': '50rem'}">
+<p-table [value]="financialTransfers" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '50rem'}">
     <ng-template pTemplate="header">
         <tr style="text-align: center;">
             <th style="text-align: center;">Conta de origem</th>
@@ -49,6 +81,9 @@
             <th style="text-align: center;">Valor da transferência</th>
             <th style="text-align: center;">Taxa</th>
         </tr>
+        <div class="search-text-response" *ngIf="financialTransfers.length == 0">
+            <font color="#a70101" size="4" class=""><b>Nenhuma Transação registrada.</b></font>
+        </div>
     </ng-template>
     <ng-template pTemplate="body" let-financialTransfers>
         <tr style="text-align: center;">

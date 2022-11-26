@@ -25,6 +25,7 @@ de endereço "localhost:4200"
 - O projeto foi desenvolvido toda parte de back end em linguagem JAVA, banco de dados em memória
 H2 e ferramenta de automação Maven. A parte de front end foi usado Angular, por ser uma tecnologia a qual
 abrange diversas linguagens de programação, possibilitando assim uma boa flexibilidade na codificação.
+- Para Componentes visuais foi utilizado PrimeNG e otimizações em SCSS.
 
 # Porta
 

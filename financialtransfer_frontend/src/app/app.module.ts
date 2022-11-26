@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import ptBr from '@angular/common/locales/pt';
+import { InputTextModule } from 'primeng/inputtext';
+import {ButtonModule} from 'primeng/button'
 
 registerLocaleData(ptBr);
 @NgModule({
@@ -19,6 +21,8 @@ registerLocaleData(ptBr);
     FinancialtransferFormComponent,
   ],
   imports: [
+    ButtonModule,
+    InputTextModule,
     TableModule,
     FormsModule,
     HttpClientModule,

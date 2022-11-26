@@ -7,6 +7,8 @@ import { FinancialtransferFormComponent } from '../form/financialtransfer-form.c
 import { FinancialtransferRoutingModule, routes} from './financialtransfer.module.routing';
 import { NgxCurrencyModule } from 'ngx-currency';
 import { TableModule } from 'primeng/table';
+import {InputTextModule} from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
 
 @NgModule({
   declarations: [
@@ -20,13 +22,15 @@ import { TableModule } from 'primeng/table';
   ],
 
   imports: [
-    TableModule,
     RouterModule.forChild(routes),
     CommonModule,
     FormsModule,
     FinancialtransferRoutingModule,
     NgModule,
     NgxCurrencyModule,
+    ButtonModule,
+    InputTextModule,
+    TableModule,
   ],
   providers: [ ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
