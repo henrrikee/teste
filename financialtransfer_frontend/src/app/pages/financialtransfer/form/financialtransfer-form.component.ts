@@ -60,6 +60,7 @@ export class FinancialtransferFormComponent implements OnInit {
     var future = new Date(this.financialTransfer.appointmentDate);
     var diff = Math.abs(now.getTime() - future.getTime());
     var days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+    console.log("days", days)
     if (this.financialTransfer.transferAmount <= 1000 && days != 0) {
       this.showAlert();
     }
@@ -73,17 +74,14 @@ export class FinancialtransferFormComponent implements OnInit {
       this.financialTransfer.rate = 12
     } if (this.financialTransfer.transferAmount > 2000 && days > 10 && days < 20) {
       this.financialTransfer.rate = (value / 100) * 8.2
-    } if (this.financialTransfer.transferAmount > 2000 && days <= 10) {
+    }
+    if (this.financialTransfer.transferAmount > 2000 && days <= 10) {
       this.showAlert();
     }
     if (this.financialTransfer.transferAmount > 2000 && days > 20 && days < 30) {
       this.financialTransfer.rate = (value / 100) * 6.9
-    } if (this.financialTransfer.transferAmount > 2000 && days <= 20) {
-      this.showAlert();
     } if (this.financialTransfer.transferAmount > 2000 && days > 30 && days < 40) {
       this.financialTransfer.rate = (value / 100) * 4.7
-    } if (this.financialTransfer.transferAmount > 2000 && days <= 30) {
-      this.showAlert();
     } if (days > 40) {
       this.financialTransfer.rate = (value / 100) * 1.7
     }
